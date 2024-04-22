@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import { Engine3D, Scene3D, Object3D, Camera3D, DirectLight, HoverCameraController, View3D, AtmosphericComponent, MeshRenderer, BoxGeometry, LitMaterial, } from '@orillusion/core'
+import { Engine3D, Scene3D, Object3D, Camera3D, DirectLight, HoverCameraController, View3D, AtmosphericComponent } from '@orillusion/core'
 import { onMounted, ref } from 'vue';
-import { RandomObjs } from './components/random';
+
 const canvsref = ref<HTMLCanvasElement>()
 onMounted(() => {
 
-  
+
   // initializa engine
   Engine3D.init({
     canvasConfig: {
       canvas: canvsref.value
     }
-  }).then(() => {
-
+  }).then(async () => {
+    const modules = await import('./components/random')
+    console.log(modules.RandomObjs);
 
     // create new scene as root node
     let scene3D: Scene3D = new Scene3D()
@@ -39,23 +40,13 @@ onMounted(() => {
     component.intensity = 1
     // add light object
     scene3D.addChild(light)
-    RandomObjs.forEach((v) => {
-      console.log(v);
-      
+    modules.RandomObjs.forEach((v) => {
+
       // add object
-      // scene3D.addChild(v)
+      scene3D.addChild(v)
 
     })
- /*    const obj: Object3D = new Object3D()
-    // add MeshRenderer
-    let mr: MeshRenderer = obj.addComponent(MeshRenderer)
-    // set geometry
-    mr.geometry = new BoxGeometry(5, 5, 5)
-    // set material
-    mr.material = new LitMaterial()
-    // set rotation
-    obj.rotationY = 45
-    scene3D.addChild(obj) */
+
     // create a view with target scene and camera
     let view = new View3D()
     view.scene = scene3D

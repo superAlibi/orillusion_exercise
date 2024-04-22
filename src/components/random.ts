@@ -6,7 +6,7 @@ const defaultXmax = 2000, defaultYmax = 2000, defaultZmax = 2000;
 const defaultWmax = 20, defaultHmax = 20, defaultLmax = 20;
 
 
-const count = 5;
+const count = 500;
 interface Param {
   Xmax: number,
   Ymax: number,
