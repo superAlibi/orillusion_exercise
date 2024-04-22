@@ -13,7 +13,6 @@ onMounted(() => {
     }
   }).then(async () => {
     const modules = await import('./components/random')
-    console.log(modules.RandomObjs);
 
     // create new scene as root node
     let scene3D: Scene3D = new Scene3D()
@@ -41,7 +40,6 @@ onMounted(() => {
     // add light object
     scene3D.addChild(light)
     modules.RandomObjs.forEach((v) => {
-
       // add object
       scene3D.addChild(v)
 
